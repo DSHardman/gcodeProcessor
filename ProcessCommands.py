@@ -5,7 +5,7 @@ from scipy import interpolate
 def interpolate_variable(variable, length):
     # Interpolation functions map length of input variable to length of gcode file
     if np.isscalar(variable):  # Variable is constant throughout print
-        f = interpolate.interp1d([0, length-1],[variable, variable])
+        f = interpolate.interp1d([0, length-1], [variable, variable])
     else:  # Interpolate variable over print
         f = interpolate.interp1d(np.linspace(0, length-1, len(variable)), variable)
     return f
@@ -19,8 +19,11 @@ def addvariable(command, index, string):
         return ' ' + string + str(command[index])
 
 
-def processgcode(filestub, commands, kp, ki, kd, nozzletemp=210, bedtemp=55, speedfactor=1, extrusionfactor=1,
-                 retraction=2.5, fanspeed=255):
+def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, bedtemp=55, speedfactor=1,
+                 extrusionfactor=1, retraction=2.5, fanspeed=255):
+
+    # SAFETY CHECKS OF RANGES/VALUES TO GO HERE
+
     # Create interpolation functions
     fkp = interpolate_variable(kp, len(commands))
     fki = interpolate_variable(ki, len(commands))
