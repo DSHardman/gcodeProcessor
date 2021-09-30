@@ -3,8 +3,8 @@ from ProcessCommands import processgcode
 from ExtractCommands import extractgcode
 
 
-extractgcode('cube', 'extractedcube')
+extractgcode('string', 'extractedstring')
 print('Data Extracted')
-printcommands = np.load('extractedcube.npy')
-processgcode('processedcube', printcommands, kd=[6.0, 6.5], speedfactor=1.5)
+printcommands = np.load('extractedstring.npy')
+processgcode('processedstring', printcommands)
 print('Data Processed')
