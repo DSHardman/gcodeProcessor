@@ -124,6 +124,11 @@ for m in range(1, maxtimesteps):  # For loop to read obtaining temperature value
         colon = s.find(':')  # Finds the first colon in string
         nozzle_temp = s[(colon + 1):(colon + 6)]  # Extracts nozzle temperature
 
+        if float(nozzle_temp) > 300:  # If temperature exceeds 300C, set target to 0 and exit script
+            print('Maximum temperature exceeded, exiting script')
+            ser.write(b'M104 S0\r\n')
+            exit()
+
         # Update numpy arrays with new data
         nozzle_data = np.append(nozzle_data, [float(nozzle_temp)])
         targets = np.append(targets, [target_slider.val])
