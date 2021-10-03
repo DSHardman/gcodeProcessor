@@ -89,7 +89,7 @@ def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, b
     output += 'M107\nG0 X0 Y120\nM190 S0\nG1 E-3 F200\nM104 S0\nG4 S300\nM107\nM84'
 
     # Write output to file
-    filename = filestub + '.gcode'
+    filename = 'outputgcode/' + filestub + '.gcode'
     file = open(filename, 'w')
     file.write(output)
     file.close()

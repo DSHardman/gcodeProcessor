@@ -145,7 +145,7 @@ time.sleep(1)
 ser.write(b'M106 S255\r\n')  # Start cooling down the nozzle for future PID tests
 
 # Save figure
-print('Please enter a filename for the nozzle graph and the data (.txt) document'
+print('Please enter a filename for the nozzle graph and the data saved'
       ' (no punctuation except \'-\' and \'_\'):')
 figname = input(">>")
 
