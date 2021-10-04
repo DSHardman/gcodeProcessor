@@ -40,7 +40,7 @@ ser.write(b'M106 S200\r\n')
 init_target = 100
 init_kp = 15
 init_ki = 0.1
-init_kd = 6.0
+init_kd = 75
 
 # Write inital parameters over serial connection
 ser.write(b'M104 S' + str(init_target).encode() + b'\r\n')
@@ -71,7 +71,7 @@ kp_slider = Slider(
     ax=axkp,
     label='Kp',
     valmin=0,
-    valmax=30,
+    valmax=60,
     valinit=init_kp,
 )
 
@@ -91,7 +91,7 @@ kd_slider = Slider(
     ax=axkd,
     label='Kd',
     valmin=0,
-    valmax=10,
+    valmax=250,
     valinit=init_kd,
 )
 
