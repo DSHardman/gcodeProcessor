@@ -22,11 +22,12 @@ def addvariable(command, index, string):
 def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, bedtemp=55, speedfactor=1,
                  extrusionfactor=1, retraction=2.5, fanspeed=255):
 
-    # Safety limits: to prevent damage to the printer
-    assert 190 <= nozzletemp <= 260
-    assert bedtemp <= 75
-    assert extrusionfactor <= 2
-    assert retraction <= 15
+    # Safety limits: to prevent damage to the printer. Check with your demonstrator before exceeding these.
+    assert all(i >= 190 for i in nozzletemp)
+    assert all(i <= 260 for i in nozzletemp)
+    assert all(i <= 75 for i in bedtemp)
+    assert all(i <= 2 for i in extrusionfactor)
+    assert all(i <= 15 for i in retraction)
 
     # Create interpolation functions
     fkp = interpolate_variable(kp, len(commands))
