@@ -18,16 +18,34 @@ def addvariable(command, index, string):
     else:
         return ' ' + string + str(command[index])
 
+def checklimits(printparameter, value, lessthan=True):
+    # Safety limit assertions: check printparameter is within desired values
+    # Handle integer arguments
+    if isinstance(printparameter, int):
+        if lessthan:
+            assert printparameter <= value
+        else:
+            assert printparameter >= value
+    # Handle list arguments
+    elif isinstance(printparameter, list):
+        if lessthan:
+            assert all(param <= value for param in printparameter)
+        else:
+            assert all(param >= value for param in printparameter)
+    # Handle other arguments
+    else:
+        raise Exception("Unexpected parameter type")
+
 
 def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, bedtemp=55, speedfactor=1,
                  extrusionfactor=1, retraction=2.5, fanspeed=255):
 
     # Safety limits: to prevent damage to the printer. Check with your demonstrator before exceeding these.
-    assert all(i >= 190 for i in nozzletemp)
-    assert all(i <= 260 for i in nozzletemp)
-    assert all(i <= 75 for i in bedtemp)
-    assert all(i <= 2 for i in extrusionfactor)
-    assert all(i <= 15 for i in retraction)
+    checklimits(nozzletemp, 180, False)
+    checklimits(nozzletemp, 260)
+    checklimits(bedtemp, 75)
+    checklimits(extrusionfactor, 2)
+    checklimits(retraction, 15)
 
     # Create interpolation functions
     fkp = interpolate_variable(kp, len(commands))
