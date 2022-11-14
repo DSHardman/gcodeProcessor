@@ -20,8 +20,8 @@ def addvariable(command, index, string):
 
 def checklimits(printparameter, value, lessthan=True):
     # Safety limit assertions: check printparameter is within desired values
-    # Handle integer arguments
-    if isinstance(printparameter, int):
+    # Handle integer & float arguments
+    if isinstance(printparameter, int) or isinstance(printparameter, float):
         if lessthan:
             assert printparameter <= value
         else:
