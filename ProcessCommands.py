@@ -77,14 +77,17 @@ def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, b
     output += 'M106 S' + str(ffanspeed(0)) + '\n'  # Set initial fan speed
 
     # Walk through all remaining commands
+    retractflag = False
     for i in range(2, len(commands)):
         if i % 1000 == 0:
             print(str(i) + '/' + str(len(commands)) + ' commands')
         commands[i][1] *= fspeedfactor(i) # Apply speed factor
         if commands[i][5] < 0:
             commands[i][5]= -fretraction(i) # Apply retraction
-        elif commands[i-1][5] < 0:
+            retractflag = True
+        elif retractflag and commands[i][5] > 0:
             commands[i][5] = fretraction(i) # Apply retraction
+            retractflag = False
         else:
             commands[i][5] *= fextrusionfactor(i) # Apply extrusion factor
 
