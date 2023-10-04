@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 
-com = "COM4"  # Change this to the COM port identified in Pronterface
+com = "COM15"  # Change this to the COM port identified in Pronterface
 
 if 'ser' in globals() and not ser.isOpen():  # Checks if ser is defined already and if connection is open
     # Configures the serial connection:
@@ -121,8 +121,8 @@ for m in range(1, maxtimesteps):  # For loop to read obtaining temperature value
     out = ser.read(ser.inWaiting())  # Wait for serial data incoming from 3D printer
     s = str(out)
     if out != '' and ':' in s and 'S' not in s:  # Makes sure only to use temperature reading lines
-        colon = s.find(':')  # Finds the first colon in string
-        nozzle_temp = s[(colon + 1):(colon + 6)]  # Extracts nozzle temperature
+        colon = s.find('T:')  # Finds the reported temperature
+        nozzle_temp = s[(colon + 2):(colon + 7)]  # Extracts nozzle temperature
 
         if float(nozzle_temp) > 300:  # If temperature exceeds 300C, set target to 0 and exit script
             print('Maximum temperature exceeded, exiting script')
