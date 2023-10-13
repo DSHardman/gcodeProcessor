@@ -11,4 +11,7 @@ processgcode('OUTPUT_HollowCube', printcommands, nozzletemp=[200, 220, 200], bed
 # The retraction length is set to a constant value of 3mm.
 # All other variables are kept as their constant defaults.
 
+# If increasing speedfactor does not increase the print speed, the maximum motor feedrates may need editing.
+# Google 'Marlin M203' for more information.
+
 print('Data Processed')
