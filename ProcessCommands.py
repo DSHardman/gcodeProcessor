@@ -73,6 +73,7 @@ def processgcode(filestub, commands, kp=15.5, ki=0.13, kd=6.0, nozzletemp=210, b
     output += addvariable(commands[0], 4, 'Z')  # Add Z command if it exists
     output += addvariable(commands[0], 5, 'E')  # Add E command if it exists
     output += '\nG1 F2400 E2.5\n'
+    output += 'G0 F'+str(2400*speedfactor)+'\n'
 
     output += 'M106 S' + str(ffanspeed(0)) + '\n'  # Set initial fan speed
 
